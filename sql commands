@@ -147,6 +147,294 @@ SELECT *FROM student;
 
 
 
+CREATE DATABASE IF NOT EXISTS college;
+DROP DATABASE IF EXISTS company;
+USE college;
+CREATE TABLE student(
+rollno INT PRIMARY KEY,
+name VARCHAR(50),
+age INT NOT NULL
+);
+SELECT * FROM student;
+INSERT INTO student (rollno, name, age) VALUES(1,"AMAN",26);
+INSERT INTO student (rollno, name, age) VALUES(7,"harry",80);
+INSERT INTO student VALUES(9,"ron",30);
+INSERT INTO student VALUES(9,"RON",30);
+SELECT * FROM student;
+
+SHOW DATABASES;
+SHOW TABLES;
+DROP TABLE student;
+CREATE DATABASE cloud_loud;
+USE cloud_loud;
+ CREATE TABLE employee(
+ id INT PRIMARY KEY,
+ name VARCHAR(50),
+ salary FLOAT NOT NULL
+ );
+ SELECT * FROM employee;
+ INSERT INTO employee (id, name, salary) VALUES (1, "ZAID", 5000.3);
+ INSERT INTO employee (id, name, salary) VALUES (2, "harris", 504.3);
+ 
+ 
+ 
+ CREATE TABLE temp1(
+ id INT UNIQUE
+ );
+  INSERT INTO temp1 VALUES(101);
+  SELECT * FROM temp1;
+  INSERT INTO temp1 VALUES(103);
+  SELECT * FROM temp1; 
+  
+   CREATE TABLE harry(
+ id INT PRIMARY KEY,
+ salary INT DEFAULT 25000
+ );
+ INSERT INTO harry (id) VALUES(101);
+ SELECT * FROM harry;
+ 
+DROP DATABASE college;
+DROP DATABASE world;
+CREATE DATABASE college;
+USE college;
+CREATE TABLE student(
+rollno INT PRIMARY KEY,
+name VARCHAR(50),
+marks INT NOT NULL,
+grade VARCHAR(1),
+city VARCHAR(50)
+);
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (1, "ZAID",79,"A","PUNE");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (2, "tahzeeb",80, "b","azamgarh");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (3, "khan",85, "c","katra");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (5, "bob",90, "d","omni");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (9, "tod",86, "c","ron");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (101,"kalim",90, "c","mumbai");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (102,"RAHIM",96, "d","CANADA");
+
+SELECT *FROM student;
+SELECT rollno, name FROM student;
+SELECT grade, city, marks FROM student;
+SELECT DISTINCT grade FROM student;   ## it will give only unique value not any duplicate value
+SELECT *FROM student WHERE marks>80;
+SELECT *FROM student WHERE city="mumbai";
+SELECT *FROM student WHERE (marks>80 AND city="mumbai");  #if any conditon false it will return null
+SELECT *FROM student WHERE (marks+10>100);
+SELECT *FROM student WHERE marks=90;
+SELECT *FROM student WHERE marks>80;
+SELECT *FROM student WHERE (marks>80 OR city="mumbai");  ###where any on condition true it will give result
+SELECT *FROM student WHERE (marks BETWEEN 80 AND 90);   #WHERE 80 AND 80 INCLUSIVE
+SELECT *FROM student WHERE city IN ("PUNE", "MUMBAI");
+SELECT *FROM student WHERE city NOT IN ("PUNE", "MUMBAI");
+SELECT * FROM student LIMIT 2;
+SELECT * FROM student WHERE marks>80 LIMIT 2;
+SELECT *FROM student ORDER BY city ASC;
+SELECT *FROM student ORDER BY marks ASC;
+SELECT *FROM student ORDER BY name ASC;
+SELECT *FROM student ORDER BY grade ASC;
+SELECT *FROM student ORDER BY name DESC;
+SELECT *FROM student ORDER BY city DESC;
+SELECT *FROM student ORDER BY grade DESC;
+SELECT *FROM student ORDER BY marks DESC;
+SELECT *FROM student ORDER BY marks DESC LIMIT 3;
+
+#########AGGREGATE FUNCTIONS############################
+SELECT marks FROM student; 
+SELECT MAX(marks) FROM student;
+SELECT AVG(marks) FROM student;
+SELECT COUNT(marks) FROM student;
+SELECT COUNT(name) FROM student;
+SELECT COUNT(rollno) FROM student;
+########group by cluse##########################
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (1, "ZAID",79,"A","PUNE");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (2, "tahzeeb",80, "b","azamgarh");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (3, "khan",85, "c","katra");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (5, "bob",90, "d","omni");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (9, "tod",86, "c","ron");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (101,"kalim",90, "c","mumbai");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (102,"RAHIM",96, "d","CANADA");
+SELECT city, name, COUNT(rollno) FROM student GROUP BY city, name;
+
+SELECT city, COUNT(rollno) FROM student GROUP BY city;
+
+SELECT city, avg(marks) FROM student GROUP BY city ORDER BY city;
+SELECT city, avg(marks) FROM student GROUP BY city ORDER BY avg(marks);
+SELECT city, avg(marks) FROM student GROUP BY city ORDER BY avg(marks) DESC;
+SELECT city, avg(marks) FROM student GROUP BY city ORDER BY avg(marks) ASC;
+SELECT grade, count(rollno) FROM student GROUP BY grade ORDER BY grade;
+
+#################having clause##########################
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (1, "ZAID",79,"A","PUNE");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (2, "tahzeeb",80, "b","azamgarh");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (3, "khan",85, "c","katra");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (5, "bob",90, "d","omni");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (9, "tod",86, "c","ron");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (101,"kalim",90, "c","mumbai");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (102,"RAHIM",96, "d","CANADA");
+SELECT city FROM student GROUP BY city;
+SELECT city, count(rollno)FROM student GROUP BY city HAVING MAX(marks>90);
+################UDPADATE COMMAND########################################
+UPDATE student SET grade="p" WHERE grade="d"; 
+SET SQL_SAFE_UPDATES = 0;
+SELECT *FROM student;
+SHOW DATABASES;
+UPDATE student SET city="ahmedabad" WHERE city="mumbai";
+UPDATE student SET marks=12 WHERE rollno=2;
+UPDATE student SET marks=marks+5;
+#########DELETE COMMAND################
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (1, "ZAID",79,"A","PUNE");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (2, "tahzeeb",80, "B","azamgarh");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (3, "khan",85, "c","katra");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (5, "bob",90, "d","omni");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (9, "tod",86, "c","ron");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (101,"kalim",90, "c","mumbai");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (102,"RAHIM",96, "d","CANADA");
+DELETE FROM student WHERE marks<12;
+
+DELETE FROM student WHERE marks<33;
+SELECT *FROM student;
+
+###################FOREIGN KEY CONCEPT#############################
+   CREATE TABLE dept(
+ id INT PRIMARY KEY,
+ name VARCHAR(50)
+ );
+ INSERT INTO dept (id, name) VALUES(101, "ENGLISH");
+ INSERT INTO dept (id, name) VALUES(102, "IT");
+ SELECT *FROM dept;
+ 
+ SELECT *FROM dept;
+ UPDATE dept
+ SET id=111
+ where id=101;
+ 
+ 
+CREATE TABLE teacher(
+ id INT PRIMARY KEY,
+ name VARCHAR(50),
+ dept_id INT,
+ FOREIGN KEY (dept_id) REFERENCES dept(id)
+ ON UPDATE CASCADE
+ ON DELETE CASCADE
+ );
+ 
+ INSERT INTO teacher VALUES(101, "ADAM",101);
+ INSERT INTO teacher VALUES(102, "eve",102);
+ SELECT *FROM teacher;
+ DROP TABLE teacher;
+ 
+ 
+ ##############ALTER TABEL#############################
+ INSERT INTO student (rollno, name, marks, grade, city) VALUES (1, "ZAID",79,"A","PUNE");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (2, "tahzeeb",80, "B","azamgarh");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (3, "khan",85, "c","katra");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (5, "bob",90, "d","omni");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (9, "tod",86, "c","ron");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (101,"kalim",90, "c","mumbai");
+INSERT INTO student (rollno, name, marks, grade, city) VALUES (102,"RAHIM",96, "d","CANADA");
+
+
+
+SELECT * FROM student;
+ALTER TABLE student
+ADD COLUMN age INT;
+
+ALTER TABLE student
+ADD COLUMN ADDRESS VARCHAR(50);
+
+ALTER TABLE student
+DROP COLUMN age;
+DESCRIBE student;
+
+ALTER TABLE student ADD COLUMN age INT NOT NULL DEFAULT 20;
+ALTER TABLE student MODIFY COLUMN age VARCHAR (2);
+SELECT *FROM student;
+ALTER TABLE student DROP COLUMN age;
+ALTER TABLE student DROP  COLUMN ADDRESS;
+ALTER TABLE lats_of_us RENAME TO student;
+SELECT * FROM student;
+TRUNCATE TABLE student;
+DROP TABlE student;
+CREATE TABLE student (
+    rollno INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    age INT NOT NULL,
+    address VARCHAR(100),
+    city VARCHAR(50),
+    marks INT
+);
+
+SELECT *FROM student;
+
+ALTER TABLE student ADD COLUMN CITY VARCHAR(50);
+INSERT INTO student (rollno, name, age, address, city, marks) VALUES
+(201, "Ayaan", 20, "Sector 21", "Noida", 88),
+(202, "Fatima", 22, "Model Town", "Delhi", 76),
+(203, "Kabir", 23, "Lal Kuan", "Aligarh", 59),
+(204, "Sneha", 21, "Boring Road", "Patna", 91),
+(205, "Rizwan", 24, "Ratanada", "Jodhpur", 64),
+(206, "Neha", 22, "Lake Road", "Bhopal", 73),
+(207, "Vivek", 25, "MG Road", "Indore", 55),
+(208, "Zara", 20, "Ambedkar Nagar", "Kanpur", 97),
+(209, "Imran", 23, "Dilsukhnagar", "Hyderabad", 82),
+(210, "Priya", 21, "Paltan Bazaar", "Dehradun", 68);
+SELECT *FROM student;
+DELETE FROM student WHERE marks<80;
+ALTER TABLE student DROP COLUMN address;
+
+
+ALTER TABLE STUDENT CHANGE name full_name VARCHAR(50);
+SELECT *FROM student;
+DROP TABLE student;
+
+################SQL jOINTS###############################################
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+
+
+
 
 
 
